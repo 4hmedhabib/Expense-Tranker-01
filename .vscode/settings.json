@@ -1,0 +1,7 @@
+{
+    "prettier.configPath": "\"prettier.jsxBracketSameLine\": true",
+    "prettier.documentSelectors": [
+        "\"prettier.jsxBracketSameLine\": true"
+    ],
+    "prettier.jsxBracketSameLine": true
+}

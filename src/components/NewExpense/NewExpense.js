@@ -4,7 +4,8 @@ import ExpenseForm from './ExpenseForm';
 const NewExpense = ({ onSaveDataHandler }) => {
 	const ExpneseDataHandler = (data) => {
 		const ExpenseData = {
-			...data
+			...data,
+			id: Math.random() * 100
 		};
 		onSaveDataHandler(ExpenseData);
 	};

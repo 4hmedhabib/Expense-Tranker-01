@@ -35,7 +35,7 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
 		const expenseData = {
 			title: userInput.title,
 			amount: userInput.amount,
-			date: moment(userInput.data).format('LL')
+			date: new Date(moment(userInput.data).format())
 		};
 		onSaveExpenseData(expenseData);
 		setUserInput({

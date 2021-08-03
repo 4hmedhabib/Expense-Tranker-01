@@ -1,8 +1,10 @@
 import './Expenses.css';
 import ExpenseItem from './ExpenseItem';
+import ExpensesList from './ExpensesList';
 import Card from '../UI/Card';
 import ExpensesFilter from './ExpensesFilter';
 import { useState } from 'react';
+import moment from 'moment';
 
 const Expenses = ({ expenses }) => {
 	const [ filterYear, setFilterYear ] = useState('2021');
@@ -11,13 +13,15 @@ const Expenses = ({ expenses }) => {
 		setFilterYear(year);
 	};
 
+	const filteredData = expenses.filter(
+		(expense) => (filterYear === moment(expense.date).format('YYYY') ? expense : '')
+	);
+
 	return (
 		<div>
 			<Card className="expenses">
 				<ExpensesFilter selected={filterYear} onChangeFilter={FilterChangeHandler} />
-				{expenses.map((expense, i) => (
-					<ExpenseItem key={i} title={expense.title} amount={expense.amount} date={expense.date} />
-				))}
+				<ExpensesList data={filteredData} />
 			</Card>
 		</div>
 	);

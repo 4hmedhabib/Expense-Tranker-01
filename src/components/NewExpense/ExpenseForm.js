@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './ExpenseForm.css';
 import moment from 'moment';
 
-const ExpenseForm = ({ onSaveExpenseData }) => {
+const ExpenseForm = ({ onSaveExpenseData, onCancel }) => {
 	const [ userInput, setUserInput ] = useState({
 		title: '',
 		amount: '',
@@ -34,8 +34,8 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
 		e.preventDefault();
 		const expenseData = {
 			title: userInput.title,
-			amount: userInput.amount,
-			date: new Date(moment(userInput.data).format())
+			amount: +userInput.amount,
+			date: new Date(moment(userInput.date).format())
 		};
 		onSaveExpenseData(expenseData);
 		setUserInput({
@@ -45,6 +45,7 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
 		});
 	};
 
+	const maxDate = new Date().toLocaleDateString();
 	return (
 		<div>
 			<form onSubmit={submitHandler}>
@@ -59,6 +60,7 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
 							onChange={titleChangeHandler}
 						/>
 					</div>
+
 					<div className="new-expense__control">
 						<label htmlFor="quantity">Quantity</label>
 						<input
@@ -73,10 +75,20 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
 					</div>
 					<div className="new-expense__control">
 						<label htmlFor="date">Date</label>
-						<input type="date" name="date" id="date" value={userInput.date} onChange={dateChangeHandler} />
+						<input
+							type="datetime-local"
+							name="date"
+							id="date"
+							value={userInput.date}
+							onChange={dateChangeHandler}
+							max={maxDate}
+						/>
 					</div>
 				</div>
 				<div className="new-expense__actions">
+					<button type="button" onClick={onCancel}>
+						Cancel
+					</button>
 					<button type="submit">Add Expense</button>
 				</div>
 			</form>

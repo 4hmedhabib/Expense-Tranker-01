@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './ExpenseForm.css';
 import moment from 'moment';
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ onSaveExpenseData }) => {
 	const [ userInput, setUserInput ] = useState({
 		title: '',
 		amount: '',
@@ -35,9 +35,14 @@ const ExpenseForm = () => {
 		const expenseData = {
 			title: userInput.title,
 			amount: userInput.amount,
-			date: moment(userInput.data).format('MMMM Do YYYY, h:mm:ss a')
+			date: moment(userInput.data).format('LL')
 		};
-		console.log(expenseData);
+		onSaveExpenseData(expenseData);
+		setUserInput({
+			title: '',
+			amount: '',
+			date: ''
+		});
 	};
 
 	return (
